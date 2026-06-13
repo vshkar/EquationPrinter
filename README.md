@@ -1,20 +1,22 @@
 ---
-title: EquationPrinter
-emoji: 🚀
-colorFrom: red
-colorTo: red
-sdk: docker
-app_port: 8501
-tags:
-- streamlit
+title: Equation Printer
+emoji: 📈
+colorFrom: indigo
+colorTo: purple
+sdk: streamlit
+app_file: app.py
 pinned: false
-short_description: Streamlit template space
 license: mit
 ---
 
-# Welcome to Streamlit!
+# Equation Printer
 
-Edit `/src/streamlit_app.py` to customize this app to your heart's desire. :heart:
+Type mathematical expressions in natural language — `sinx cosy`, `x^2 + y^2`,
+`e^(-x^2-y^2)` — and see an interactive 3D surface plot with a 2D contour.
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+**Features:**
+- Natural language math input (SymPy-powered)
+- Interactive 3D surface (drag to rotate, scroll to zoom)
+- 2D contour plot with heatmap coloring
+- STL export for 3D printing
+- Configurable ranges, resolution, and Z exaggeration

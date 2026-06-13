@@ -41,8 +41,16 @@ def main() -> None:
     )
     st.title("📈 Equation Printer")
 
-    # ---- Input row ----
+    # ---- Input row (buttons rendered first so they can safely set the
+    #      text_input's session-state key before the widget is created) ----
     col_input, col_examples = st.columns([3, 1])
+
+    with col_examples:
+        st.caption("Examples")
+        for label, value in EXAMPLES:
+            if st.button(label, key=f"ex_{value}", use_container_width=True):
+                st.session_state.expr_input = value
+                st.rerun()
 
     with col_input:
         expr_text = st.text_input(
@@ -51,13 +59,6 @@ def main() -> None:
             key="expr_input",
             placeholder="e.g. sin(x)*cos(y)  or  x^2 + y^2",
         )
-
-    with col_examples:
-        st.caption("Examples")
-        for label, value in EXAMPLES:
-            if st.button(label, key=f"ex_{value}", use_container_width=True):
-                st.session_state.expr_input = value
-                st.rerun()
 
     # ---- Sidebar: range controls ----
     with st.sidebar:

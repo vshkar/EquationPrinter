@@ -1,4 +1,4 @@
-"""3D Expression Plotter — Streamlit app entry point.
+"""Equation Printer — Streamlit app entry point.
 
 Type a mathematical expression (using ``x`` and ``y`` as variables) and
 see an interactive 3D surface plot alongside a 2D contour plot.
@@ -35,11 +35,11 @@ DEFAULT_EXPRESSION = "sin(x)*cos(y)"
 
 def main() -> None:
     st.set_page_config(
-        page_title="3D Expression Plotter",
+        page_title="Equation Printer",
         page_icon="📈",
         layout="wide",
     )
-    st.title("📈 3D Expression Plotter")
+    st.title("📈 Equation Printer")
 
     # ---- Input row ----
     col_input, col_examples = st.columns([3, 1])

@@ -26,7 +26,7 @@ EXAMPLES: list[tuple[str, str]] = [
     ("x³ - 3x·y²", "x^3 - 3*x*y^2"),
 ]
 
-DEFAULT_EXPRESSION = "sin(x)*cos(y)"
+DEFAULT_EXPRESSION = "sin(x*y)"
 
 # ---------------------------------------------------------------------------
 # UI

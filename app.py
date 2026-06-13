@@ -40,6 +40,7 @@ def main() -> None:
         layout="wide",
     )
     st.title("📈 Equation Printer")
+    st.caption("Visualize and 3D-print mathematical equations — just type a function of *x* and *y*.")
 
     # ---- Input row (buttons rendered first so they can safely set the
     #      text_input's session-state key before the widget is created) ----

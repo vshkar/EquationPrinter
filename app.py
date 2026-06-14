@@ -10,6 +10,7 @@ import streamlit as st
 from parser import parse_expression
 from plotter import create_plots, evaluate_function
 from stl_export import stl_to_bytes, surface_to_stl
+from metrics import track_error, track_expression, track_page_view, track_stl_download
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -34,6 +35,8 @@ DEFAULT_EXPRESSION = "sin(x*y)"
 
 
 def main() -> None:
+    track_page_view()
+
     st.set_page_config(
         page_title="Equation Printer",
         page_icon="📈",
@@ -147,6 +150,7 @@ def main() -> None:
 
     if error:
         st.error(error, icon="❌")
+        track_error(f"parse: {error}")
         return
 
     # Safety: if ranges are inverted, swap them
@@ -158,7 +162,10 @@ def main() -> None:
             figures = create_plots(expr, x_range=x_rng, y_range=y_rng, n=resolution)
         except Exception as exc:
             st.error(f"Error generating plots: {exc}", icon="💥")
+            track_error(f"plot: {exc}")
             return
+
+    track_expression(expr_text)
 
     # ---- Display plots ----
     col_3d, col_2d = st.columns(2)
@@ -200,6 +207,7 @@ def main() -> None:
             mesh = surface_to_stl(X, Y, Z, base_z=bz, scale=scale_mm, z_scale=z_scale)
             stl_data = stl_to_bytes(mesh, binary=True)
             stl_ready = True
+            track_stl_download()
         except Exception as exc:
             st.error(f"Error generating STL: {exc}", icon="💥")
 

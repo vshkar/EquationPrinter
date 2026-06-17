@@ -45,6 +45,10 @@ def main() -> None:
     st.title("📈 Equation Printer")
     st.caption("Visualize and 3D-print mathematical equations — just type a function of *x* and *y*.")
 
+    # Initialise the text-input session state (avoiding Widget+API conflict).
+    if "expr_input" not in st.session_state:
+        st.session_state.expr_input = DEFAULT_EXPRESSION
+
     # ---- Input row (buttons rendered first so they can safely set the
     #      text_input's session-state key before the widget is created) ----
     col_input, col_examples = st.columns([3, 1])
@@ -52,14 +56,13 @@ def main() -> None:
     with col_examples:
         st.caption("Examples")
         for label, value in EXAMPLES:
-            if st.button(label, key=f"ex_{value}", use_container_width=True):
+            if st.button(label, key=f"ex_{value}", width="stretch"):
                 st.session_state.expr_input = value
                 st.rerun()
 
     with col_input:
         expr_text = st.text_input(
             "Enter a mathematical expression (use **x**, **y** as variables):",
-            value=DEFAULT_EXPRESSION,
             key="expr_input",
             placeholder="e.g. sin(x)*cos(y)  or  x^2 + y^2",
         )
@@ -173,12 +176,12 @@ def main() -> None:
     with col_3d:
         st.subheader("3D Surface")
         st.caption("Drag to rotate • Scroll to zoom • Right-drag to pan")
-        st.plotly_chart(figures["surface"], use_container_width=True)
+        st.plotly_chart(figures["surface"], width="stretch")
 
     with col_2d:
         st.subheader("2D Contour")
         st.caption("Drag to pan • Scroll to zoom • Double-click to reset")
-        st.plotly_chart(figures["contour"], use_container_width=True)
+        st.plotly_chart(figures["contour"], width="stretch")
 
     # ---- STL Export ----
     st.divider()
@@ -235,7 +238,7 @@ def main() -> None:
             file_name="surface.stl",
             mime="application/slicer-stl",
             disabled=not stl_ready,
-            use_container_width=True,
+            width="stretch",
         )
 
 
